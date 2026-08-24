@@ -1,16 +1,13 @@
 def rank_resume(score):
 
-    if score >= 85:
-        return "A+ (Excellent)"
+    if score >= 90:
+        return "🏆 Industry Ready"
 
-    elif score >= 70:
-        return "A (Very Good)"
+    elif score >= 75:
+        return "🥇 Advanced"
 
-    elif score >= 55:
-        return "B (Good)"
-
-    elif score >= 40:
-        return "C (Needs Improvement)"
+    elif score >= 60:
+        return "🥈 Intermediate"
 
     else:
-        return "D (Poor)"
+        return "🥉 Beginner"
