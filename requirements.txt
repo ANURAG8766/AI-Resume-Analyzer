@@ -1,0 +1,6 @@
+streamlit
+pdfplumber
+matplotlib
+google-genai
+pandas
+numpy
