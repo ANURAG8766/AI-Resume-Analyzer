@@ -11,7 +11,7 @@ from ai_feedback import get_ai_feedback
 
 # PASTE YOUR GEMINI API KEY HERE
 
-
+API_KEY = os.getenv("GEMINI_API_KEY")
 
 st.set_page_config(
     page_title="AI Resume Analyzer & Interview Coach",
