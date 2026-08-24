@@ -8,10 +8,11 @@ from interview_questions import generate_questions
 from job_recommender import recommend_roles
 from resume_ranker import rank_resume
 from ai_feedback import get_ai_feedback
+import pandas as pd
 
 # PASTE YOUR GEMINI API KEY HERE
 
-API_KEY = os.getenv("GEMINI_API_KEY")
+API_KEY = st.secrets["GEMINI_API_KEY"]
 
 st.set_page_config(
     page_title="AI Resume Analyzer & Interview Coach",
@@ -29,6 +30,16 @@ uploaded_file = st.file_uploader(
 if uploaded_file:
 
     text = extract_text(uploaded_file)
+    word_count = len(text.split())
+    char_count = len(text)
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.metric("Words", word_count)
+
+    with col2:
+        st.metric("Characters", char_count)
 
     score, found_skills = calculate_score(text)
 
@@ -40,13 +51,18 @@ if uploaded_file:
     ]
 
     st.subheader("📊 ATS Score")
+    col1, col2, col3 = st.columns(3)
 
+    with col1:
+        st.metric("ATS Score", f"{score}%")
+
+    with col2:
+        st.metric("Skills Found", len(found_skills))
+
+    with col3:
+        st.metric("Missing Skills", len(missing_skills))
     st.progress(score / 100)
 
-    st.metric(
-        label="Resume Score",
-        value=f"{score}%"
-    )
 
     st.subheader("🏆 Resume Rank")
     st.success(rank)
@@ -127,7 +143,23 @@ if uploaded_file:
     st.subheader("📄 Resume Preview")
 
     st.text_area(
-        "",
+        "Resume Text",
         text,
         height=300
     )
+    st.download_button(
+    "Download Feedback",
+    feedback,
+    file_name="resume_feedback.txt"
+)
+    st.sidebar.title("AI Resume Analyzer")
+
+    st.sidebar.info(   
+
+"""
+Built by Anurag Yadav
+
+B.Tech AIML
+ADGIPS
+"""
+)
